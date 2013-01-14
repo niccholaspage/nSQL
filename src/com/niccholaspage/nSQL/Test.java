@@ -1,3 +1,4 @@
+package com.niccholaspage.nSQL;
 public class Test {
 	public static void main(String[] args){
 		Table table = new Table(null, "nRPG_accounts");

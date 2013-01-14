@@ -1,3 +1,4 @@
+package com.niccholaspage.nSQL;
 import java.sql.Connection;
 
 public class Table {

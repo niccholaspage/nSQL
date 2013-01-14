@@ -1,18 +1,34 @@
+package com.niccholaspage.nSQL;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SelectQuery extends Query {
+public class UpdateQuery extends Query {
+	private boolean comma;
+	
 	private boolean and;
 	
-	public SelectQuery(Connection connection, String sql){
+	public UpdateQuery(Connection connection, String sql){
 		super(connection, sql);
+		
+		comma = false;
 		
 		and = false;
 	}
 	
-	public SelectQuery where(String where){
+	public UpdateQuery set(String set){
+		if (comma){
+			sql += ",";
+		}
+		
+		sql += " " + set;
+		
+		comma = true;
+		
+		return this;
+	}
+	
+	public UpdateQuery where(String where){
 		if (and){
 			sql += " AND";
 		}else {
@@ -26,16 +42,14 @@ public class SelectQuery extends Query {
 		return this;
 	}
 	
-	public ResultSet execute(){
+	public void execute(){
 		Statement statement;
 		try {
 			statement = connection.createStatement();
 			
-			return statement.executeQuery(sql);
+			statement.executeQuery(sql);
 		} catch (SQLException e){
 			e.printStackTrace();
-			
-			return null;
 		}
 	}
 }
