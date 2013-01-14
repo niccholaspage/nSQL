@@ -1,4 +1,6 @@
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class UpdateQuery extends Query {
 	private boolean comma;
@@ -19,5 +21,16 @@ public class UpdateQuery extends Query {
 		comma = true;
 		
 		return this;
+	}
+	
+	public void execute(){
+		Statement statement;
+		try {
+			statement = connection.createStatement();
+			
+			statement.executeQuery(sql);
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
 	}
 }
