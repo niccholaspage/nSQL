@@ -22,4 +22,8 @@ public class Table {
 	public UpdateQuery update(){
 		return new UpdateQuery(connection, "UPDATE " + table + " SET");
 	}
+	
+	public InsertQuery insert(){
+		return new InsertQuery(connection, "INSERT INTO " + table + " (");
+	}
 }

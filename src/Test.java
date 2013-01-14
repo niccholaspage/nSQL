@@ -9,5 +9,9 @@ public class Test {
 		UpdateQuery updateQuery = table.update().set("name=yolo").set("money=1230").set("gabe=nolo");
 		
 		System.out.println(updateQuery);
+		
+		InsertQuery insertQuery = table.insert().insert("name").insert("money").value("yolo").value("212");
+		
+		System.out.println(insertQuery);
 	}
 }
