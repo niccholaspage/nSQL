@@ -1,4 +1,6 @@
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class InsertQuery extends Query {
 	private boolean firstValue;
@@ -27,5 +29,16 @@ public class InsertQuery extends Query {
 		}
 		
 		return this;
+	}
+	
+	public void execute(){
+		Statement statement;
+		try {
+			statement = connection.createStatement();
+			
+			statement.executeQuery(sql);
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
 	}
 }
