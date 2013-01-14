@@ -16,6 +16,10 @@ public class Table {
 		return table;
 	}
 	
+	public SelectQuery select(){
+		return select("*");
+	}
+	
 	public SelectQuery select(String selection){
 		return new SelectQuery(connection, "SELECT " + selection + " FROM " + table);
 	}

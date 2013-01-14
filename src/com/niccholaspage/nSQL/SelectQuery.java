@@ -32,7 +32,11 @@ public class SelectQuery extends Query {
 		try {
 			statement = connection.createStatement();
 			
-			return statement.executeQuery(sql);
+			ResultSet set = statement.executeQuery(sql);
+			
+			statement.close();
+			
+			return set;
 		} catch (SQLException e){
 			e.printStackTrace();
 			

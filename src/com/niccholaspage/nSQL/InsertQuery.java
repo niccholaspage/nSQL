@@ -38,6 +38,8 @@ public class InsertQuery extends Query {
 			statement = connection.createStatement();
 			
 			statement.executeQuery(sql);
+			
+			statement.close();
 		} catch (SQLException e){
 			e.printStackTrace();
 		}
