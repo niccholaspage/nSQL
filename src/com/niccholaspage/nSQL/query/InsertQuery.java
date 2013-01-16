@@ -1,4 +1,4 @@
-package com.niccholaspage.nSQL;
+package com.niccholaspage.nSQL.query;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -6,7 +6,7 @@ import java.sql.Statement;
 public class InsertQuery extends Query {
 	private boolean firstValue;
 	
-	protected InsertQuery(Connection connection, String sql){
+	public InsertQuery(Connection connection, String sql){
 		super(connection, sql);
 		
 		firstValue = true;

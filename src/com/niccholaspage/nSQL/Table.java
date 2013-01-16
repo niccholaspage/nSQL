@@ -1,6 +1,12 @@
 package com.niccholaspage.nSQL;
 import java.sql.Connection;
 
+import com.niccholaspage.nSQL.query.CreateQuery;
+import com.niccholaspage.nSQL.query.DeleteQuery;
+import com.niccholaspage.nSQL.query.InsertQuery;
+import com.niccholaspage.nSQL.query.SelectQuery;
+import com.niccholaspage.nSQL.query.UpdateQuery;
+
 public class Table {
 	private final Connection connection;
 	

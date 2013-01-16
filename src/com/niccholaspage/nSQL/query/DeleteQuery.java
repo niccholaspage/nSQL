@@ -1,19 +1,19 @@
-package com.niccholaspage.nSQL;
+package com.niccholaspage.nSQL.query;
+
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SelectQuery extends Query {
+public class DeleteQuery extends Query {
 	private boolean and;
 	
-	protected SelectQuery(Connection connection, String sql){
+	public DeleteQuery(Connection connection, String sql){
 		super(connection, sql);
 		
 		and = false;
 	}
 	
-	public SelectQuery where(String where){
+	public DeleteQuery where(String where){
 		if (and){
 			sql += " AND";
 		}else {
@@ -27,20 +27,16 @@ public class SelectQuery extends Query {
 		return this;
 	}
 	
-	public ResultSet execute(){
+	public void execute(){
 		Statement statement;
 		try {
 			statement = connection.createStatement();
 			
-			ResultSet set = statement.executeQuery(sql);
+			statement.executeQuery(sql);
 			
 			statement.close();
-			
-			return set;
 		} catch (SQLException e){
 			e.printStackTrace();
-			
-			return null;
 		}
 	}
 }

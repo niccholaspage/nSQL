@@ -1,4 +1,4 @@
-package com.niccholaspage.nSQL;
+package com.niccholaspage.nSQL.query;
 import java.sql.Connection;
 
 public class Query {

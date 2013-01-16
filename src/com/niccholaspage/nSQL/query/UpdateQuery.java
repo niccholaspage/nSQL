@@ -1,19 +1,34 @@
-package com.niccholaspage.nSQL;
-
+package com.niccholaspage.nSQL.query;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DeleteQuery extends Query {
+public class UpdateQuery extends Query {
+	private boolean comma;
+	
 	private boolean and;
 	
-	protected DeleteQuery(Connection connection, String sql){
+	public UpdateQuery(Connection connection, String sql){
 		super(connection, sql);
+		
+		comma = false;
 		
 		and = false;
 	}
 	
-	public DeleteQuery where(String where){
+	public UpdateQuery set(String field, Object value){
+		if (comma){
+			sql += ",";
+		}
+		
+		sql += " " + field + "=" + value;
+		
+		comma = true;
+		
+		return this;
+	}
+	
+	public UpdateQuery where(String where){
 		if (and){
 			sql += " AND";
 		}else {
@@ -29,6 +44,7 @@ public class DeleteQuery extends Query {
 	
 	public void execute(){
 		Statement statement;
+		
 		try {
 			statement = connection.createStatement();
 			

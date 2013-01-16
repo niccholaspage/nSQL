@@ -1,4 +1,4 @@
-package com.niccholaspage.nSQL;
+package com.niccholaspage.nSQL.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
