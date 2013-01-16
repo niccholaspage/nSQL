@@ -24,6 +24,10 @@ public class Table {
 		return new SelectQuery(connection, "SELECT " + selection + " FROM " + table);
 	}
 	
+	public CreateQuery create(){
+		return new CreateQuery(connection, "CREATE TABLE IF NOT EXISTS " + table + " (");
+	}
+	
 	public UpdateQuery update(){
 		return new UpdateQuery(connection, "UPDATE " + table + " SET");
 	}

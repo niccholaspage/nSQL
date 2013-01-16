@@ -1,4 +1,5 @@
 package com.niccholaspage.nSQL;
+
 public class Test {
 	public static void main(String[] args){
 		Table table = new Table(null, "nRPG_accounts");
@@ -18,5 +19,9 @@ public class Test {
 		DeleteQuery deleteQuery = table.delete().where("name=gabe").where("money=100");
 		
 		System.out.println(deleteQuery);
+		
+		CreateQuery createQuery = table.create().create("INTEGER PRIMARY KEY AUTOINCREMENT").create("name varchar(64) NOT NULL");
+		
+		System.out.println(createQuery);
 	}
 }

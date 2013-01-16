@@ -44,6 +44,7 @@ public class UpdateQuery extends Query {
 	
 	public void execute(){
 		Statement statement;
+		
 		try {
 			statement = connection.createStatement();
 			
