@@ -33,7 +33,7 @@ public class CreateQuery extends Query {
 		try {
 			statement = connection.createStatement();
 			
-			statement.executeQuery(sql);
+			statement.execute(sql);
 			
 			statement.close();
 		} catch (SQLException e){

@@ -48,7 +48,7 @@ public class UpdateQuery extends Query {
 		try {
 			statement = connection.createStatement();
 			
-			statement.executeQuery(sql);
+			statement.executeUpdate(sql);
 			
 			statement.close();
 		} catch (SQLException e){

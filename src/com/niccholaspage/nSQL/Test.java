@@ -1,5 +1,10 @@
 package com.niccholaspage.nSQL;
 
+import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import com.niccholaspage.nSQL.connection.SQLiteConnection;
 import com.niccholaspage.nSQL.query.CreateQuery;
 import com.niccholaspage.nSQL.query.DeleteQuery;
 import com.niccholaspage.nSQL.query.InsertQuery;
@@ -8,9 +13,13 @@ import com.niccholaspage.nSQL.query.UpdateQuery;
 
 public class Test {
 	public static void main(String[] args){
-		Table table = new Table(null, "nRPG_accounts");
+		Connection connection = new SQLiteConnection(new File("database.db")).getConnection();
+		
+		Table table = new Table(connection, "nSQL_accounts");
 		
 		CreateQuery createQuery = table.create().create("INTEGER PRIMARY KEY AUTOINCREMENT").create("name varchar(64) NOT NULL");
+		
+		createQuery.execute();
 		
 		System.out.println(createQuery);
 		
@@ -29,5 +38,11 @@ public class Test {
 		DeleteQuery deleteQuery = table.delete().where("name=gabe").where("money=100");
 		
 		System.out.println(deleteQuery);
+		
+		try {
+			connection.close();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
 	}
 }
