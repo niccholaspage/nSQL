@@ -6,7 +6,7 @@ import java.sql.Statement;
 public class InsertQuery extends Query {
 	private boolean firstValue;
 	
-	public InsertQuery(Connection connection, String sql){
+	protected InsertQuery(Connection connection, String sql){
 		super(connection, sql);
 		
 		firstValue = true;
@@ -18,7 +18,7 @@ public class InsertQuery extends Query {
 		return this;
 	}
 	
-	public InsertQuery value(String value){
+	public InsertQuery value(Object value){
 		sql = sql.substring(0, sql.length() - 2);
 		
 		if (firstValue){

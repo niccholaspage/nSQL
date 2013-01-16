@@ -31,4 +31,8 @@ public class Table {
 	public InsertQuery insert(){
 		return new InsertQuery(connection, "INSERT INTO " + table + " (");
 	}
+	
+	public DeleteQuery delete(){
+		return new DeleteQuery(connection, "DELETE FROM " + table);
+	}
 }

@@ -8,7 +8,7 @@ public class UpdateQuery extends Query {
 	
 	private boolean and;
 	
-	public UpdateQuery(Connection connection, String sql){
+	protected UpdateQuery(Connection connection, String sql){
 		super(connection, sql);
 		
 		comma = false;
@@ -16,12 +16,12 @@ public class UpdateQuery extends Query {
 		and = false;
 	}
 	
-	public UpdateQuery set(String set){
+	public UpdateQuery set(String field, Object value){
 		if (comma){
 			sql += ",";
 		}
 		
-		sql += " " + set;
+		sql += " " + field + "=" + value;
 		
 		comma = true;
 		
