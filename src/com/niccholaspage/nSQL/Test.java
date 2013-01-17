@@ -23,7 +23,7 @@ public class Test {
 		
 		System.out.println(createQuery);
 		
-		SelectQuery selectQuery = table.select("*").where("name=gabe").where("money=100").where("gabe=yolo");
+		SelectQuery selectQuery = table.select("*").where("name", "gabe").where("money", "100").where("gabe", "yolo");
 		
 		System.out.println(selectQuery);
 		

@@ -28,14 +28,14 @@ public class UpdateQuery extends Query {
 		return this;
 	}
 	
-	public UpdateQuery where(String where){
+	public UpdateQuery where(String key, Object value){
 		if (and){
 			sql += " AND";
 		}else {
 			sql += " WHERE";
 		}
 		
-		sql += " " + where;
+		sql += " " + key + "=" + value;
 		
 		and = true;
 		

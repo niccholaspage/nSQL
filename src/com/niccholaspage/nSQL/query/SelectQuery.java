@@ -13,14 +13,14 @@ public class SelectQuery extends Query {
 		and = false;
 	}
 	
-	public SelectQuery where(String where){
+	public SelectQuery where(String key, Object value){
 		if (and){
 			sql += " AND";
 		}else {
 			sql += " WHERE";
 		}
 		
-		sql += " " + where;
+		sql += " " + key + "=" + value;
 		
 		and = true;
 		
