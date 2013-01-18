@@ -20,7 +20,17 @@ public class SelectQuery extends Query {
 			sql += " WHERE";
 		}
 		
-		sql += " " + key + "=" + value;
+		sql += " " + key + "=";
+		
+		StringBuilder builder = new StringBuilder(value + "");
+		
+		if (value instanceof String){
+			builder.insert(0, "'");
+			
+			builder.append("'");
+		}
+		
+		sql += builder.toString();
 		
 		and = true;
 		

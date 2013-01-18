@@ -13,14 +13,24 @@ public class DeleteQuery extends Query {
 		and = false;
 	}
 	
-	public DeleteQuery where(String where){
+	public DeleteQuery where(String key, Object value){
 		if (and){
 			sql += " AND";
 		}else {
 			sql += " WHERE";
 		}
 		
-		sql += " " + where;
+		sql += " " + key + "=";
+		
+		StringBuilder builder = new StringBuilder(value + "");
+		
+		if (value instanceof String){
+			builder.insert(0, "'");
+			
+			builder.append("'");
+		}
+		
+		sql += builder.toString();
 		
 		and = true;
 		

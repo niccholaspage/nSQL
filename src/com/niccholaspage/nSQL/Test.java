@@ -35,7 +35,7 @@ public class Test {
 		
 		System.out.println(insertQuery);
 		
-		DeleteQuery deleteQuery = table.delete().where("name=gabe").where("money=100");
+		DeleteQuery deleteQuery = table.delete().where("name", "gabe").where("money", 100.281);
 		
 		System.out.println(deleteQuery);
 		
