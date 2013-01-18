@@ -19,14 +19,22 @@ public class InsertQuery extends Query {
 	}
 	
 	public InsertQuery value(Object value){
+		StringBuilder builder = new StringBuilder(value + "");
+		
+		if (value instanceof String){
+			builder.insert(0, "'");
+			
+			builder.append("' ");
+		}
+		
 		sql = sql.substring(0, sql.length() - 2);
 		
 		if (firstValue){
-			sql += ") VALUES (" + value + ")";
+			sql += ") VALUES (" + builder.toString() + ")";
 			
 			firstValue = false;
 		}else {
-			sql += ", " + value + ")";
+			sql += ", " + builder.toString() + ")";
 		}
 		
 		return this;
