@@ -7,6 +7,8 @@ import java.sql.Statement;
 public class SelectQuery extends Query {
 	private boolean and;
 	
+	private Statement statement;
+	
 	public SelectQuery(Connection connection, String sql){
 		super(connection, sql);
 		
@@ -38,19 +40,24 @@ public class SelectQuery extends Query {
 	}
 	
 	public ResultSet execute(){
-		Statement statement;
 		try {
 			statement = connection.createStatement();
 			
 			ResultSet set = statement.executeQuery(sql);
-			
-			//statement.close();
 			
 			return set;
 		} catch (SQLException e){
 			e.printStackTrace();
 			
 			return null;
+		}
+	}
+	
+	public void close(){
+		try {
+			statement.close();
+		} catch (SQLException e){
+			e.printStackTrace();
 		}
 	}
 }
