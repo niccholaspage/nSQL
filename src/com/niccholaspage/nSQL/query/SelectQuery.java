@@ -44,7 +44,7 @@ public class SelectQuery extends Query {
 			
 			ResultSet set = statement.executeQuery(sql);
 			
-			statement.close();
+			//statement.close();
 			
 			return set;
 		} catch (SQLException e){
