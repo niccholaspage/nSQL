@@ -21,7 +21,15 @@ public class UpdateQuery extends Query {
 			sql += ",";
 		}
 		
-		sql += " " + field + "=" + value;
+		StringBuilder builder = new StringBuilder(value + "");
+		
+		if (value instanceof String){
+			builder.insert(0, "'");
+			
+			builder.append("'");
+		}
+		
+		sql += " " + field + "=" + builder.toString();
 		
 		comma = true;
 		
