@@ -24,12 +24,14 @@ public class InsertQuery extends Query {
 		if (value instanceof String){
 			builder.insert(0, "'");
 			
-			builder.append("' ");
+			builder.append("'");
 		}
 		
-		sql = sql.substring(0, sql.length() - 2);
+		sql = sql.substring(0, sql.length() - 1);
 		
 		if (firstValue){
+			sql = sql.substring(0, sql.length() - 1);
+			
 			sql += ") VALUES (" + builder.toString() + ")";
 			
 			firstValue = false;

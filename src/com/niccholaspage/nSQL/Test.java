@@ -31,7 +31,9 @@ public class Test {
 		
 		System.out.println(updateQuery);
 		
-		InsertQuery insertQuery = table.insert().insert("name").insert("money").value("yolo").value(212);
+		int id = 1;
+		
+		InsertQuery insertQuery = table.insert().insert("name").insert("money").insert("gasdo").value("yolo").value(212).value(id);
 		
 		System.out.println(insertQuery);
 		
