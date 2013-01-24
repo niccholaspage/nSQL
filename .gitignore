@@ -3,7 +3,7 @@ bin/
 target/
 build/
 repos/
-Fe.jar
+nSQL.jar
 .gradle/
 .classpath
 .project

@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<!DOCTYPE project>
+<project default="main">
+
+    <property environment="env"/>
+	
+    <target name="main" depends="clean, compile, compress" description="Main target">
+        <echo>Building the .jar file.</echo>
+    </target>
+	
+	<target name="clean" description="Cleans project">
+		<echo>Cleaning</echo>
+		<delete failonerror="false">
+			<fileset dir="build" includes="**/*" />
+		</delete>
+		<delete file="nSQL.jar" />
+		<mkdir dir="build"/>
+	</target>
+  
+    <target name="compile" description="Compilation target">
+    	<echo>Compiling</echo>
+        <javac srcdir="." destdir="build" debug="on" debuglevel="lines,vars,source" classpathref="classpath" includeantruntime="false" />
+    </target>
+  
+  <target name="compress" description="Compression target">
+	<echo>Compressing</echo>
+        <jar jarfile="nSQL.jar" basedir="build" includes="com/**/*">
+        </jar>
+    	<delete dir="build" />
+  </target>
+</project>
