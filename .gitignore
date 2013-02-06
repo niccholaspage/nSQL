@@ -4,6 +4,7 @@ target/
 build/
 repos/
 nSQL.jar
+database.db
 .gradle/
 .classpath
 .project
