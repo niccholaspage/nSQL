@@ -1,15 +1,22 @@
 package com.niccholaspage.nSQL.query;
+
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InsertQuery extends Query {
 	private boolean firstValue;
+	
+	private final List<Object> values;
 	
 	public InsertQuery(Connection connection, String sql){
 		super(connection, sql);
 		
 		firstValue = true;
+		
+		values = new ArrayList<Object>();
 	}
 	
 	public InsertQuery insert(String insert){
@@ -19,37 +26,40 @@ public class InsertQuery extends Query {
 	}
 	
 	public InsertQuery value(Object value){
-		StringBuilder builder = new StringBuilder(value + "");
-		
-		if (value instanceof String){
-			builder.insert(0, "'");
-			
-			builder.append("'");
-		}
+		values.add(value);
 		
 		sql = sql.substring(0, sql.length() - 1);
 		
 		if (firstValue){
 			sql = sql.substring(0, sql.length() - 1);
 			
-			sql += ") VALUES (" + builder.toString() + ")";
+			sql += ") VALUES (?)";
 			
 			firstValue = false;
 		}else {
-			sql += ", " + builder.toString() + ")";
+			sql += ", ?)";
 		}
 		
 		return this;
 	}
 	
 	public void execute(){
-		Statement statement;
+		PreparedStatement prest;
+		
 		try {
-			statement = connection.createStatement();
+			prest = connection.prepareStatement(sql);
 			
-			statement.executeUpdate(sql);
+			int i = 1;
 			
-			statement.close();
+			for (Object object : values){
+				prest.setObject(i, object);
+				
+				i++;
+			}
+			
+			prest.executeUpdate(sql);
+			
+			prest.close();
 		} catch (SQLException e){
 			e.printStackTrace();
 		}

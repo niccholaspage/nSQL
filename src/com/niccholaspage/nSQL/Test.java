@@ -27,7 +27,7 @@ public class Test {
 		
 		System.out.println(selectQuery);
 		
-		UpdateQuery updateQuery = table.update().set("name", "yolo").set("money", 1230).set("gabe", "gabe");
+		UpdateQuery updateQuery = table.update().set("name", "yolo").set("money", 1230).set("gabe", "gabe").where("name", "sdoifj");
 		
 		System.out.println(updateQuery);
 		

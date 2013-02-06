@@ -1,16 +1,22 @@
 package com.niccholaspage.nSQL.query;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeleteQuery extends Query {
 	private boolean and;
+	
+	private final List<Object> values;
 	
 	public DeleteQuery(Connection connection, String sql){
 		super(connection, sql);
 		
 		and = false;
+		
+		values = new ArrayList<Object>();
 	}
 	
 	public DeleteQuery where(String key, Object value){
@@ -22,15 +28,9 @@ public class DeleteQuery extends Query {
 		
 		sql += " " + key + "=";
 		
-		StringBuilder builder = new StringBuilder(value + "");
+		values.add(value);
 		
-		if (value instanceof String){
-			builder.insert(0, "'");
-			
-			builder.append("'");
-		}
-		
-		sql += builder.toString();
+		sql += "?";
 		
 		and = true;
 		
@@ -38,13 +38,22 @@ public class DeleteQuery extends Query {
 	}
 	
 	public void execute(){
-		Statement statement;
+		PreparedStatement prest;
+		
 		try {
-			statement = connection.createStatement();
+			prest = connection.prepareStatement(sql);
 			
-			statement.executeUpdate(sql);
+			int i = 1;
 			
-			statement.close();
+			for (Object object : values){
+				prest.setObject(i, object);
+				
+				i++;
+			}
+			
+			prest.executeUpdate(sql);
+			
+			prest.close();
 		} catch (SQLException e){
 			e.printStackTrace();
 		}

@@ -1,18 +1,25 @@
 package com.niccholaspage.nSQL.query;
+
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SelectQuery extends Query {
 	private boolean and;
 	
-	private Statement statement;
+	private PreparedStatement prest;
+	
+	private final List<Object> values;
 	
 	public SelectQuery(Connection connection, String sql){
 		super(connection, sql);
 		
 		and = false;
+		
+		values = new ArrayList<Object>();
 	}
 	
 	public SelectQuery where(String key, Object value){
@@ -24,15 +31,9 @@ public class SelectQuery extends Query {
 		
 		sql += " " + key + "=";
 		
-		StringBuilder builder = new StringBuilder(value + "");
+		values.add(value);
 		
-		if (value instanceof String){
-			builder.insert(0, "'");
-			
-			builder.append("'");
-		}
-		
-		sql += builder.toString();
+		sql += "?";
 		
 		and = true;
 		
@@ -40,12 +41,20 @@ public class SelectQuery extends Query {
 	}
 	
 	public ResultSet execute(){
+		PreparedStatement prest;
+		
 		try {
-			statement = connection.createStatement();
+			prest = connection.prepareStatement(sql);
 			
-			ResultSet set = statement.executeQuery(sql);
+			int i = 1;
 			
-			return set;
+			for (Object object : values){
+				prest.setObject(i, object);
+				
+				i++;
+			}
+			
+			return prest.executeQuery(sql);
 		} catch (SQLException e){
 			e.printStackTrace();
 			
@@ -55,7 +64,7 @@ public class SelectQuery extends Query {
 	
 	public void close(){
 		try {
-			statement.close();
+			prest.close();
 		} catch (SQLException e){
 			e.printStackTrace();
 		}

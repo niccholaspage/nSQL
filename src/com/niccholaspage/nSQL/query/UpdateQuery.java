@@ -1,12 +1,17 @@
 package com.niccholaspage.nSQL.query;
+
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UpdateQuery extends Query {
 	private boolean comma;
 	
 	private boolean and;
+	
+	private final List<Object> values;
 	
 	public UpdateQuery(Connection connection, String sql){
 		super(connection, sql);
@@ -14,6 +19,8 @@ public class UpdateQuery extends Query {
 		comma = false;
 		
 		and = false;
+		
+		values = new ArrayList<Object>();
 	}
 	
 	public UpdateQuery set(String field, Object value){
@@ -21,15 +28,9 @@ public class UpdateQuery extends Query {
 			sql += ",";
 		}
 		
-		StringBuilder builder = new StringBuilder(value + "");
+		values.add(value);
 		
-		if (value instanceof String){
-			builder.insert(0, "'");
-			
-			builder.append("'");
-		}
-		
-		sql += " " + field + "=" + builder.toString();
+		sql += " " + field + "=?";
 		
 		comma = true;
 		
@@ -45,15 +46,9 @@ public class UpdateQuery extends Query {
 		
 		sql += " " + key + "=";
 		
-		StringBuilder builder = new StringBuilder(value + "");
+		values.add(value);
 		
-		if (value instanceof String){
-			builder.insert(0, "'");
-			
-			builder.append("'");
-		}
-		
-		sql += builder.toString();
+		sql += "?";
 		
 		and = true;
 		
@@ -61,14 +56,22 @@ public class UpdateQuery extends Query {
 	}
 	
 	public void execute(){
-		Statement statement;
+		PreparedStatement prest;
 		
 		try {
-			statement = connection.createStatement();
+			prest = connection.prepareStatement(sql);
 			
-			statement.executeUpdate(sql);
+			int i = 1;
 			
-			statement.close();
+			for (Object object : values){
+				prest.setObject(i, object);
+				
+				i++;
+			}
+			
+			prest.executeUpdate(sql);
+			
+			prest.close();
 		} catch (SQLException e){
 			e.printStackTrace();
 		}
