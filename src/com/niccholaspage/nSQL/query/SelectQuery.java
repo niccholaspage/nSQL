@@ -41,8 +41,6 @@ public class SelectQuery extends Query {
 	}
 	
 	public ResultSet execute(){
-		PreparedStatement prest;
-		
 		try {
 			prest = connection.prepareStatement(sql);
 			
@@ -54,7 +52,7 @@ public class SelectQuery extends Query {
 				i++;
 			}
 			
-			return prest.executeQuery(sql);
+			return prest.executeQuery();
 		} catch (SQLException e){
 			e.printStackTrace();
 			
