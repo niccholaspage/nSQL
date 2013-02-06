@@ -69,7 +69,7 @@ public class UpdateQuery extends Query {
 				i++;
 			}
 			
-			prest.executeUpdate(sql);
+			prest.executeUpdate();
 			
 			prest.close();
 		} catch (SQLException e){

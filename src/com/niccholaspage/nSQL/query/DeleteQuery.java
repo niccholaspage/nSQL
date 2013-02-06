@@ -51,7 +51,7 @@ public class DeleteQuery extends Query {
 				i++;
 			}
 			
-			prest.executeUpdate(sql);
+			prest.executeUpdate();
 			
 			prest.close();
 		} catch (SQLException e){
