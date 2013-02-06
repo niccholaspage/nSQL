@@ -4,6 +4,8 @@
 
     <property environment="env"/>
 	
+	<path id="classpath"></path>
+	
     <target name="main" depends="clean, compile, compress" description="Main target">
         <echo>Building the .jar file.</echo>
     </target>
