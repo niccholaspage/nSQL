@@ -17,9 +17,7 @@ public class SQLiteConnection {
 			Connection connection = DriverManager.getConnection("jdbc:sqlite:" + file.getAbsolutePath());
 			
 			return connection;
-		} catch (Exception e) {
-			e.printStackTrace();
-
+		} catch (Exception e){
 			return null;
 		}
 	}

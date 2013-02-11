@@ -33,8 +33,6 @@ public class MySQLConnection {
 
 			return DriverManager.getConnection(url, this.username, this.password);
 		} catch (Exception e){
-			e.printStackTrace();
-
 			return null;
 		}
 	}
